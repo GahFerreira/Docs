@@ -1,0 +1,69 @@
+# Comandos Básicos do Git
+
+Definir nome e email do usuário globalmente (retirar o --global define apenas localmente)
+
+  # git config --global user.name <nome>
+  # git config --global user.email <email>
+
+Remover a definição de nome e email global
+
+  #git config --global --unset user.name
+  #git config --global --unset user.email
+
+Inicializar um repositório na pasta atual
+
+    # git init
+
+Adicionar todos os arquivos modificados para a Staging Area, prontos para o Commit
+
+  # git add .
+  # git add -a
+
+Dar Commit com uma mensagem
+
+  # git commit -m "msg"
+
+Revisar o histórico de Commits
+
+  # git log
+  # git log --oneline
+
+Ir para um Commit anterior para rever seu código naquele momento
+
+    # git checkout <endereço_do_commit>
+
+Criar um novo Branch
+
+  # git branch <nome>
+  # git checkout -b <nome> // Além de adicionar, acessa o Branch no console
+
+Ver todos os Branches no repositório
+
+  # git branch -a
+
+Mudar para um outro Branch
+
+  # git checkout <nome_branch>
+
+Deletar um Branch
+
+  #git checkout main // Primeiro muda-se para o main
+  #git branch -d <nome>
+  #git branch -D <nome> // Apaga sem avisos
+
+Sincronizar um repositório remoto com um local, através de um nome (o padrão é "origin")
+
+  # git remote add <nome> <url_repo_github.git>
+
+Enviar arquivos de um Branch local para um Branch remoto
+
+  # git push <remoto> <local>
+  ## Ex.: git push origin main
+
+Obter arquivos de um Branch remoto para um Branch local
+
+  # git pull <remoto> <local>
+
+Obter a versão do Git
+
+  # git --version
