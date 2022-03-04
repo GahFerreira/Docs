@@ -1,0 +1,52 @@
+# Conceitos CSS
+
+Style Sheet
+
+  # Style Sheet é um arquivo com uma lista de regras de CSS
+
+  # Cada regra tem a seguinte propriedade
+
+    # div  // Aqui temos o selector, que define o que vai ser mudado
+    {
+      color: red;   // Dentro das chaves temos as declarations, que define como será mudado
+      margin: 20px;
+    }
+
+
+Default Browser styles
+
+  # São Styles padrão que o navegador aplica a HTML puro
+  ##Ex: Como o <h1> é maior e negrito; como o <a> é sublinho e azul/roxo
+
+
+Elementos de Bloco e Inline
+
+  # Um elemento de Bloco HTML possui uma regra CSS gerada automaticamente pelo navegador:
+    div
+    {
+      display: block;
+    }
+
+  # Um elemento Inline não possui tal regra.
+  # Se um elemento Inline tiver como declaration 'display: block', ele irá se comportar como um elemento de Bloco
+
+
+Margins & Paddings
+
+  # Um elemento é composto por 4 partes:
+    # Conteúdo do elemento
+    # Border
+    # Margin: região retangular ao lado de fora de Border
+    # Padding: região retangular ao lado de dentro de Border
+
+  # Um elemento em Bloco possui Margin & Padding nas 4 direções
+  # Um elemento Inline possui Padding nas 4 direções, mas Margin apenas na esquerda e direita
+
+  # Margin Collapse
+    #Caso dois elementos de Bloco tenham margem e estejam adjacentes verticalmente (um em cima do outro), a distância entre eles é a margem de maior valor entre os dois, e não a soma de suas margens
+
+  #Padding Collapse
+    #Caso dois elementos Inline tenham padding e estejam adjacentes verticalmente (um em cima do outro), eles vão estar colados, ou seja, padding verticalmente não tem efeito
+
+  # Elementos com 'display: inline-block' tem a propriedade de ficar adjacentes horizontalmente com outros elementos Inline, mas possuem margem e padding como elementos de bloco
+  ## Obs: até onde vi, não há Margin Collapse entre dois elementos 'inline-block'

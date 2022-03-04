@@ -1,13 +1,51 @@
-#Explicação CSS
+#Sintaxe CSS
 
-Style Sheet é um arquivo com uma lista de regras de CSS
+Customização de Texto
 
-Cada regra tem a seguinte propriedade
-
-  #div  // Aqui temos o selector, que define o que vai ser mudado
+  # p
   {
-    color: red;   // Dentro das chaves temos as declarations, que define como será mudado
-    margin: 20px;
+    color: slategray;             // Cor
+    background-color: slategray;  // Cor de fundo
+
+    text-shadow: 2px 2px lightgray; // Sombra (dist. a direita, dist. abaixo, cor)
+
+    text-decoration: underline; // Formatação
+    text-align: center;         // Alinhamento
+
+    font-size: 20px;    // Tamanho da fonte
+    font-family: arial; // Família da fonte
+
+    line-height: 30px;    // Altura entre as linhas
+    letter-spacing: 3px;  // Espaço entre as letras
+
+    column-count: 3;      // Se o texto for extenso, em quantas colunas dividir o texto
+    column-gap: 100px;    // Espaço entre as colunas
   }
 
-#Sintaxe CSS
+
+Customização de Lista
+
+  # li
+  {
+    list-style-type: square;  // Qual símbolo antecede o texto
+  }
+
+
+Border, Margin & Padding
+
+  # div
+  {
+    border-style: solid;    // Estilo da borda ao redor do elemento
+    border-width: 4px;      // Tamanho da borda
+    border-color: crimson;  // Cor da borda
+
+    border: {border-style} {border-width} {border-color}; // Junção das 3 anteriores
+
+    //  Há border-top, border-bottom, border-left & border-right também, que funcionam como border, mas para uma direção específica
+  }
+
+  # div
+  {
+    margin: 20px;   // Margem que fica ao redor externo da border
+    padding: 20px;  // Padding que fica ao redor interno da border
+  }

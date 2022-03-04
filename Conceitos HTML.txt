@@ -1,0 +1,13 @@
+# Conceitos HTML
+
+Elementos Inline
+
+  # São elementos que gastam apenas o espaço da página que precisam
+  # Se vários elementos Inline forem colocados em sequência, eles seriam inseridos horizontalmente na tela () até não ter mais espaço
+  ##Ex.: span, img, a, strong, em ...
+
+Elementos de Bloco
+
+  # São elementos que ocupam toda a parte horizontal da tela onde estão
+  # Se vários elementos de Bloco forem colocados em sequência, eles seriam inseridos verticalmente na tela
+  ##Ex.: p, div, blockquote, h1, h2, h3, ul, li ...
