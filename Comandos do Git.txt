@@ -19,6 +19,10 @@ Adicionar todos os arquivos modificados para a Staging Area, prontos para o Comm
   # git add .
   # git add -a
 
+Remover um arquivo da Staging Area
+
+  # git restore --staged <arquivo>
+
 Dar Commit com uma mensagem
 
   # git commit -m "msg"

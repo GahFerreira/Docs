@@ -1,0 +1,79 @@
+#Sintaxe HTML
+
+Colocar no início do código para demarcar o documento como HTML
+
+  #<!DOCTYPE html>
+
+Tag para delimitar o código HTML, todo o código fica dentro
+
+  #<html> ... </html>
+
+Tag que contém informações adicionais sobre a página
+
+  #<head> ... </head>
+
+Tag que define o título da página (mostrado na guia do navegador, por exemplo)
+
+  #<title> ... </title>
+
+Tag que define a página
+
+  #<body> ... </body>
+
+Tag que define divisões na página
+
+  #<div> ... </div>
+
+Tag que produz texto simples na tela
+
+  #<p> ... </p>
+
+Tags que customizam texto simples
+
+  #<strong> ... </strong> // Negrito
+  #<em> ... </em>         // Itálico
+  #<small> ... </small>   // Pequeno
+
+Tag que insere um link clicável na tela
+
+  #<a href: "{site}"> ... </a>
+
+Tags que inserem texto em negrito em diferentes tamanho
+
+  #<h1> ... </h1> // Maior
+  #<h2> ... </h2>
+  #<h3> ... </h3>
+  #<h4> ... </h4>
+  #<h5> ... </h5>
+  #<h6> ... </h6> // Menor
+
+Tags de lista
+
+  #<ul> ... </ul> // Lista não ordenada
+  #<ol> ... </ol> // Lista ordenada
+
+Tag de item de Lista
+
+  #<li> ... </li>
+  ##Ex.: <ul> <li> Item </li> </ul>
+
+Tag que adiciona um texto especial
+
+  #<span> ... </span>
+
+Tag que quebra a linha
+
+  #<br>
+
+Tag que adiciona uma barra horizontal
+
+  #<hr>
+
+Tag de imagem
+
+  #<img src="{diretório}">
+  #<img src="{diretório}" alt="{descrição acessível}">
+
+Tag de citação (cria um texto)
+
+  #<blockquote cite="{site}"> ... </blockquote>
