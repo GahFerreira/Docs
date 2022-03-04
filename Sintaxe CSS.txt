@@ -1,0 +1,13 @@
+#Explicação CSS
+
+Style Sheet é um arquivo com uma lista de regras de CSS
+
+Cada regra tem a seguinte propriedade
+
+  #div  // Aqui temos o selector, que define o que vai ser mudado
+  {
+    color: red;   // Dentro das chaves temos as declarations, que define como será mudado
+    margin: 20px;
+  }
+
+#Sintaxe CSS
