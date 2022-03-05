@@ -1,8 +1,157 @@
 #Sintaxe CSS
 
+Para mudar o comportamento de uma tag HTML
+
+  {tag}
+  {
+    {declaração}: {valor};
+    ...
+  }
+
+  // Qualquer instância da tag {tag} será modificada
+
+Para mudar o comportamento de instâncias determinadas de tags HTML, usa-se Class
+
+  # No arquivo HTML
+
+    <{tag} class="{nome_da_classe}">
+
+  #No arquivo CSS
+
+    .{nome_da_classe}
+    {
+      {declaração}: {valor};
+      ...
+    }
+
+  // Qualquer instância de tag HTML que tenha a Class {nome_da_classe} será alterada
+
+Para mudar o comportamento de instâncias determinadas de uma tag HTML específica, usa-se Class
+  # No arquivo HTML
+
+    <{tag} class="{nome_da_classe}">
+
+  #No arquivo CSS
+
+    {tag}.{nome_da_classe}  // Note que não há espaço antes ou depois de '.'
+    {
+      {declaração}: {valor};
+      ...
+    }
+
+  // Apenas as instâncias da tag {tag} que tenham a Class {nome_da_classe} serão alteradas
+
+As modificações a cima também funcionam para classes múltiplas
+
+  # Uma instância que possui mais de uma classe é modificada primeiro por cada classe individualmente e depois por regras das classes juntas (podendo sobrescrever mudanças)
+
+  # No arquivo HTML
+
+  <{tag} class="{nome1} {nome2}"
+
+  #No arquivo CSS
+
+  .{nome1}.{nome2}
+  {
+    {declaração}: {valor};
+    ...
+  }
+  // Nesse caso, qualquer instância que tenha necessariamente ambas as classes será afetada por essa regra.
+
+  {tag}.{nome1}.{nome2}
+  {
+  {declaração}: {valor};
+  ...
+  }
+  // Nesse caso, instâncias da tag {tag} que tenham necessariamente ambas as classes serão afetadas por essa regra.
+
+
+Ao invés de Class, pode-se usar Id também para referenciar uma tag específica (no entanto, só pode haver 1 Id com o mesmo nome no arquivo HTML todo)
+
+  # No arquivo HTML
+
+  <{tag} id="{nome_id}">
+
+  # No arquivo CSS
+
+  #{nome_id}  // Nesse caso, o # é realmente necessário
+  {
+    {declaração}: {valor};
+    ...
+  }
+
+  {tag}#{nome_id}
+  {
+    {declaração}: {valor};
+    ...
+  }
+  // Referencia apenas a tag {tag} que tenha o id {nome_id}
+
+
+Para modificar elementos que são filhos de outro elemento
+
+  # No arquivo HTML
+
+  <{pai}> <{filho} class="class_filho"> ... </{filho}> </{pai}>
+
+  # No arquivo CSS
+
+  {pai} {filho} // Note o espaço entre os dois elementos
+  {
+    {declaração}: {valor};
+    ...
+  }
+  // Modifica todos os filhos {filho} de {pai}
+
+  {pai} .{class_filho}
+  {
+    {declaração}: {valor};
+    ...
+  }
+  // Modifica todos os filhos que possuam a class {class_filho} dentro de {pai}
+
+
+Para modificar elementos que possuam um atributo
+
+  # No arquivo HTML
+
+  <{tag} {atributo}={valor}>
+
+  # No arquivo CSS
+
+  {tag}[{atributo}]
+  {
+    {declaração}: {valor};
+    ...
+  }
+  // Modifica todos os elementos {tag} que possuam {atributo} de atributo
+
+  {tag}[{atributo}={valor}]
+  {
+    {declaração}: {valor};
+    ...
+  }
+  // Modifica todos os elementos {tag} que possuam {atributo}={valor}
+
+  {tag}[{atributo}*={val}]
+  {
+    {declaração}: {valor};
+    ...
+  }
+  // Modifica todos os elementos {tag} que possuam {atributo} cujo valor de igualdade inclua {val}. Obs: {val} = substring contígua de {valor}
+
+  // Caso hajam duas ou mais regras que referenciem o elemento dessa forma e tenham declarations iguais, a regra escrita posteriormente no Style Sheet sobrescreve as anteriores
+
+  {tag}[{atributo}$={valor}]
+  {
+    {declaração}: {valor};
+    ...
+  }
+  // Modifica todos os elementos {tag} que possuam {atributo} cujo valor termine com {valor}
+
 Customização de Texto
 
-  # p
+  p
   {
     color: slategray;             // Cor
     background-color: slategray;  // Cor de fundo
@@ -11,6 +160,7 @@ Customização de Texto
 
     text-decoration: underline; // Formatação
     text-align: center;         // Alinhamento
+    text-transform: uppercase;  // Forma do texto
 
     font-size: 20px;    // Tamanho da fonte
     font-family: arial; // Família da fonte
@@ -25,7 +175,7 @@ Customização de Texto
 
 Customização de Lista
 
-  # li
+  li
   {
     list-style-type: square;  // Qual símbolo antecede o texto
   }
@@ -33,7 +183,7 @@ Customização de Lista
 
 Border, Margin & Padding
 
-  # div
+  div
   {
     border-style: solid;    // Estilo da borda ao redor do elemento
     border-width: 4px;      // Tamanho da borda
@@ -44,7 +194,7 @@ Border, Margin & Padding
     //  Há border-top, border-bottom, border-left & border-right também, que funcionam como border, mas para uma direção específica
   }
 
-  # div
+  div
   {
     margin: 20px;   // Margem que fica ao redor externo da border
     padding: 20px;  // Padding que fica ao redor interno da border

@@ -77,3 +77,32 @@ Tag de imagem
 Tag de citação (cria um texto)
 
   #<blockquote cite="{site}"> ... </blockquote>
+
+Algumas tags HTML5 visam dar mais contexto para o navegador
+Tag de contéudo principal, único àquela página
+
+  #<main> ... </main>
+
+Tag que define uma seção (lista de blogs, informações de contato)
+
+  #<section> ... </section>
+
+Tag que define um artigo
+
+  #<article> ... </article>
+
+Tag que define algo relacionado a algo da página
+
+  #<aside> ... </aside>
+
+Tag que define o cabeçalho
+
+  #<header> ... </header>
+
+Tag que define o rodapé
+
+  #<footer> ... </footer>
+
+Tag que define uma navegação (como uma lista de links)
+
+  #<nav> ... </nav>

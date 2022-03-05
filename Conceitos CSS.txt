@@ -50,3 +50,30 @@ Margins & Paddings
 
   # Elementos com 'display: inline-block' tem a propriedade de ficar adjacentes horizontalmente com outros elementos Inline, mas possuem margem e padding como elementos de bloco
   ## Obs: até onde vi, não há Margin Collapse entre dois elementos 'inline-block'
+
+Herança
+
+  # Se um elemento HTML for modificado por uma regra CSS, seus filhos também serão modificados por essa regra
+
+  # Note que nem todas as declarations são passadas dos pais para os filhos. Majoritariamente são as modificações de texto que são herdadas.
+  ## Ex: margins & paddings não são herdadas.
+
+  # Se quisermos forçar um elemento filho a herdar uma declaration do elemento pai
+    {filho}
+    {
+      {declaration}: inherit;
+    }
+
+Especificidade
+
+  # Se um elemento HTML for modificado por uma regra CSS, essa modificação pode ser sobrescrita
+    # Caso haja outra regra CSS, mais específica
+
+    ## Ex.: Um p dentro de um div. Se uma regra modifica p, e outra modifica div, a cor do texto de p será modificada pela regra que modifica p.
+
+    ## Ex2.: Um p dentro de uma div. Se uma regra modifica p, e outra modifica div p, a cor do texto de p será modificada pela regra que modifica div p.
+
+    ## Ex3.: Uma regra que modifica a classe '_1' e outra que modifica as classes '_1 _2'. Se ambos mudam a cor, a cor do texto será modificada pela segunda regra.
+
+    # Caso a regra seja escrita posteriormente no código
+    ## Ex.: Uma regra que modifica tags que tenham atributo igual 'valor' e outra que modifica tags que tenham um atributo cujo valor termine em 'or'. A que vier posteriormente no código sobrescreverá a outra, se tiverem uma mesma declaration.
