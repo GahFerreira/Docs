@@ -31,6 +31,18 @@ Elementos de Bloco e Inline
   # Se um elemento Inline tiver como declaration 'display: block', ele irá se comportar como um elemento de Bloco
 
 
+Unidades de Medida
+
+  # Ao declarar declarations, podemos usar algumas unidades de medida
+
+    # px: pixels
+
+    # em: o valor original daquele atributo.
+    ## Ex.: font-size: 1.2em; // O novo tamanho da fonte vai ser 1.2x o original.
+
+    # %: porcentagem
+
+
 Margins & Paddings
 
   # Um elemento é composto por 4 partes:
@@ -51,6 +63,7 @@ Margins & Paddings
   # Elementos com 'display: inline-block' tem a propriedade de ficar adjacentes horizontalmente com outros elementos Inline, mas possuem margem e padding como elementos de bloco
   ## Obs: até onde vi, não há Margin Collapse entre dois elementos 'inline-block'
 
+
 Herança
 
   # Se um elemento HTML for modificado por uma regra CSS, seus filhos também serão modificados por essa regra
@@ -63,6 +76,7 @@ Herança
     {
       {declaration}: inherit;
     }
+
 
 Especificidade
 
@@ -77,3 +91,56 @@ Especificidade
 
     # Caso a regra seja escrita posteriormente no código
     ## Ex.: Uma regra que modifica tags que tenham atributo igual 'valor' e outra que modifica tags que tenham um atributo cujo valor termine em 'or'. A que vier posteriormente no código sobrescreverá a outra, se tiverem uma mesma declaration.
+
+
+Posição e Layout
+
+  # Em uma regra CSS, podemos definir alguns comportamentos de um elemento HTML em relação à sua posição
+
+    # Static (padrão): o elemento se comporta como se estivesse no fluxo normal do documento
+
+    # Relative: o conteúdo do elemento se move em relação à sua posição original, nas direções e quantidades especificadas.
+
+    # Absolute: retira o elemento do fluxo normal do documento e posiciona ele absolutamente em relação ao pai.
+    Requer que o elemento pai tenha como position um valor não static.
+
+    # Fixed: retira o elemento do fluxo normal do documento e o trava na parte da tela onde está inicialmente, mesmo aplicando scroll.
+
+
+Pseudoclasses
+
+  # São classes aplicadas a elementos quando eles estão em determinados estados
+
+    # hover: quando se passa o mouse em cima de um elemento
+
+    # focus: quando o foco está sobre um elemento
+
+    # valid: quando um elemento está válido
+    ## Ex.: email inserido corretamente em <input type="email">
+
+
+Pseudoelementos
+
+  # São partes de um elemento HTML que podem mudar dinamicamente
+
+    # first-line: a primeira linha do texto de um elemento
+
+    # first-letter: a primeira letra do texto de um elemento
+
+    # selection: quando o elemento é selecionado
+
+    # after: logo após do elemento terminar
+
+    # before: logo antes do elemento começar
+
+
+Design Responsivo & Media Query
+
+  # Como criar um site que atende bem todos os dispositivos que o utilizarão
+
+  # Uma técnica utilizada é criar o site para mobile primeiro, e ir aumentando a tela gradualmente, até desenvolver o site para PC
+
+  # Uma tag utilizada para que o conteúdo do site seja melhor adaptado para cada tela
+    # <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  # Media Queries são utilizada para aplicar Styles de CSS a dispositivos que cumpram uma determinada condição (como tamanho da tela)

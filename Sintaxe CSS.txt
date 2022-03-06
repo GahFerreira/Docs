@@ -10,6 +10,7 @@ Para mudar o comportamento de uma tag HTML
 
   // Qualquer instância da tag {tag} será modificada
 
+
 Para mudar o comportamento de instâncias determinadas de tags HTML, usa-se Class
 
   # No arquivo HTML
@@ -26,6 +27,7 @@ Para mudar o comportamento de instâncias determinadas de tags HTML, usa-se Clas
 
   // Qualquer instância de tag HTML que tenha a Class {nome_da_classe} será alterada
 
+
 Para mudar o comportamento de instâncias determinadas de uma tag HTML específica, usa-se Class
   # No arquivo HTML
 
@@ -40,6 +42,7 @@ Para mudar o comportamento de instâncias determinadas de uma tag HTML específi
     }
 
   // Apenas as instâncias da tag {tag} que tenham a Class {nome_da_classe} serão alteradas
+
 
 As modificações a cima também funcionam para classes múltiplas
 
@@ -149,6 +152,14 @@ Para modificar elementos que possuam um atributo
   }
   // Modifica todos os elementos {tag} que possuam {atributo} cujo valor termine com {valor}
 
+
+Customização Genérica
+  {tag}
+  {
+    box-sizing = border-box;  // Incorpora o padding na width definida
+  }
+
+
 Customização de Texto
 
   p
@@ -175,9 +186,31 @@ Customização de Texto
 
 Customização de Lista
 
+  ul
+  {
+    white-space: nowrap;  // Elementos adjacentes horizontalmente não sofrerão wrap
+  }
+
   li
   {
     list-style-type: square;  // Qual símbolo antecede o texto
+  }
+
+
+Customização de Imagem
+
+  img
+  {
+    max-width: 100%;  // Define a maior largura que a imagem pode ocupar na tela (ou em relação a seu pai se ele tiver uma width específica)
+  }
+
+
+Customização Específica
+
+  {tag}
+  {
+    content: 'uma string';  // Insere-se aquela string se for possível inserir algo
+                            // Como em p::after
   }
 
 
@@ -192,10 +225,88 @@ Border, Margin & Padding
     border: {border-style} {border-width} {border-color}; // Junção das 3 anteriores
 
     //  Há border-top, border-bottom, border-left & border-right também, que funcionam como border, mas para uma direção específica
+
+    border-radius: 10px;  // Arredonda as bordas
+
+    outline: none;  // Gera um contorno no elemento
   }
 
   div
   {
-    margin: 20px;   // Margem que fica ao redor externo da border
+    margin: 20px auto;   // Margem que fica ao redor externo da border
+                         // O primeiro valor é a margem vertical e o segundo a margem horizontal
+                         // 'auto' significa que qualquer espaço adicional será preenchido
     padding: 20px;  // Padding que fica ao redor interno da border
   }
+
+
+Posição & Layout
+
+  # Static
+  {tag}
+  {
+    position: static;
+  }
+
+  # Relative
+  {tag}
+  {
+    position: relative;
+    left: 100px;
+    bottom: 100px;  // O elemento se afastará 100px da esquerda & 100px de baixo
+  }
+
+  # Absolute
+  {tag}
+  {
+    position: absolute;
+    left: 10%; // O elemento se afastará 10% da esquerda do pai e 20% do topo do pai
+    top: 20%;  // % é recomendado: a posição relativa se mantém se o pai mudar de tamanho
+  }
+
+  # Fixed
+  {tag}
+  {
+    position: fixed;
+    z-index: 1; // Controla a posição Z (profundidade), o padrão é 0.
+                // Aumentar traz o elemento pra frente, diminuir traz o elemento pro fundo.
+  }
+
+  # Sticky
+  {tag}
+  {
+    position: sticky;
+    top: 150px; // Quando o elemento estiver 150px afastado do topo,
+                // ele deixa de ser static e vira fixed.
+  }
+
+
+Pseudoclasses
+
+  {tag}:{pseudoclass}
+  {
+    {declaração}: {valor};
+    ...
+  }
+
+
+Pseudoelementos
+
+  {tag}::{Pseudoelemento}
+  {
+    {declaração}: {valor};
+    ...
+  }
+
+
+Media Queries
+
+  @media {tipo_de_media} and ({condicao})
+
+  # Ex.: @media screen and (max-width=1400px)
+         {
+           {declaração}: {valor};
+           ...
+         }
+
+         // Essa regra será aplicada apenas para dispositivos com tela, cuja tela tenha até 1400px de largura
