@@ -1,0 +1,44 @@
+# Conceitos JS
+
+Diferenças entre var & let
+
+ # Todas as declarações das variáveis var são executadas antes da execução do resto do código. Entretanto, elas são atribuídas com undefined dessa maneira.
+ # Váriaveis let são declaradas apenas quando o código chega na linha de sua declaração
+
+   ## Ex: console.log(x); var x = 5;  // Resulta em undefined: x só é atribuído após o log
+   ## Ex: console.log(x); let x = 5;  // Resulta em um erro
+
+ # Variáveis var são globais dentro da sua função (ou globais se declaradas fora de função)
+ # Variáveis let são locais à seu escopo
+
+   ## Ex: if (true) { var x = 5; }
+        console.log(x); // Resulta em 5
+
+   ##Ex: if (true) { let x = 5; }
+       console.log(x); // Resulta em um erro
+
+Function hoisting
+
+  # A declaração da função é executada antes do resto do código
+  # As expressões que recebem funções no entanto, não são!
+
+    ##Ex: z(); function z() { return 0; } // Dará certo!
+    ##Ex: a(); var a = function() { return 1 }; // Dará erro!
+
+Variáveis globais
+
+# Existe um Objeto Global. Todas as variáveis globais, na verdade, são atributos desse objeto.
+  # Na web, o Objeto Global é window. Se você declarar uma variável x, pode obtê-la por: window.x
+  # Você pode referenciar essa variável de um filho do Objeto Global por parent.x
+
+Constantes (const)
+
+# Funciona como let
+# Tem que ser atribuída na inicialização
+# Não pode ser redeclarada, nem declarada com nome de uma função ou variável
+# Mesmo que um objeto ou array for const, seu conteúdo não o é
+
+undefined & null
+
+# Para operações numéricas, undefined funciona como NaN e null como 0
+# Para operações booleanas, ambos funcionam como false
