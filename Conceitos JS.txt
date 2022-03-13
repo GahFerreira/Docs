@@ -21,7 +21,7 @@ Diferenças entre var & let
 Function hoisting
 
   # A declaração da função é executada antes do resto do código
-  # As expressões que recebem funções no entanto, não são!
+  # As expressões que criam funções no entanto, não são!
 
     ##Ex: z(); function z() { return 0; } // Dará certo!
     ##Ex: a(); var a = function() { return 1 }; // Dará erro!
@@ -66,3 +66,82 @@ Errors - try catch finally
 # try sempre vai rodar, e para a execução em um return ou throw
 # catch vai rodar logo após um throw dentro de try
 # finally vai rodar sempre, inclusive sobreescrevendo returns & throws de try & catch
+
+
+for in & for of
+
+# for in itera sobre o nome das propriedades
+# for of itera sobre os valores das propriedades
+
+
+Funções aninhadas & closure
+
+# Você pode declarar uma função aninhada dentro de outra função
+# Uma função aninhada tem acesso às variáveis e funções de sua função pai (como isso se aplica à função pai, a função aninhada tem acesso a tudo globalmente)
+
+# Uma closure é criada quando uma função aninhada é disponibilizada para um escopo externo ao da sua função pai
+# Uma mecânica da closure é que a função disponibilizada (retornada) se lembra dos argumentos de sua função externa
+
+  ##Ex: function externa(x)
+        {
+          function interna(y) { return x + y; }
+
+          return interna;
+        }
+
+        var soma_com_tres = externa(3); // Retorna-se a função interna, que é guardada dentro da variável, e que se lembra que x é 3
+
+        soma_com_tres(10);  // Retorna 13
+        externa(3)(10); // Equivalente à linha de cima
+
+        // A ideia é que retorna-se interna, que pode ser chamada, e interna lembra que x é 3
+# Mais genericamente, uma closure preserva todos os argumentos e variáveis aos quais faz referência
+  # Eles funcionam como propriedades de um objeto
+    # Só são liberados quando não há como acessar aquela closure
+    # É igual à liberação de memória de um objeto quando não há como acessá-lo
+# Se houverem múltiplas variáveis com o mesmo nome, declaradas em escopos diferentes, a precedência é a do escopo mais interno
+
+# Uma closure pode ser definida a fim de encapsular uma variável, para que não se possa acessá-la diretamente
+  ## Ex:  let criarPet = function(name)
+          {
+            return
+            {
+              setName: function(newName) { name = newName; },
+              getName: function() { return name; };
+            }
+          }
+
+          meuPet = criarPet('Nina');
+          meuPet.getName(); // Retorna Nina
+
+          // Note que não há como acessar 'name' diretamente mais
+          // Se setName não existisse, não seria mais possível sequer mudar seu valor
+
+  ## Ex2: let pegarCodigo = ( function()
+            {
+              let codigo = 'cachorro-quente';
+
+              return function() { return codigo; };
+            };
+            )
+
+
+Vetor arguments
+
+# Os argumentos passados para uma função ficam guardados em um vetor chamado arguments
+# arguments pode ser chamado dentro da função
+# Útil para recuperar argumentos adicionais aos que a função define
+
+  ##Ex: function f(valor_inicial)
+        {
+          for (i = 1; i < arguments.length; i++)
+          {
+            valor_inicial += arguments[i];
+          }
+
+          return valor_inicial;
+        }
+
+        f (100, 1, 2, 3, 4, 5); // Retorna 115
+
+# arguments não é exatamente um vetor: tem índice numerado e .length, mas não todos os métodos de um vetor
