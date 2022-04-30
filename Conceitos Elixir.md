@@ -73,13 +73,13 @@ Task.start(fn -> raise "erro" end)
 Task.start_link(fn -> raise "erro" end)
 ```
 
-# Entrada e Saída
+## Entrada e Saída
 
-## Módulo IO
+### Módulo IO
 
 O módulo IO possui operações de leitura e escrita para várias entradas e saídas.
 
-### Escrita
+#### Escrita
 
 Para escrever na saída padrão, usa-se IO.puts/1:
 
@@ -94,7 +94,7 @@ Para definir a saída, como a saída de erro padrão, usa-se IO.puts/2:
 IO.puts(:stderr, "Erro!")
 ```
 
-### Leitura
+#### Leitura
 
 Para ler da entrada padrão, usa-se IO.gets/1:
 
@@ -102,11 +102,11 @@ Para ler da entrada padrão, usa-se IO.gets/1:
 IO.gets("Digite um número: ")
 ```
 
-## Módulo File
+### Módulo File
 
 O módulo File possui operações para trabalhar com arquivos.
 
-### Abrir e Fechar
+#### Abrir e Fechar
 
 Para abrir um arquivo, usa-se File.open/1 ou File.open/2, que retorna uma tupla {:estado, PID_arquivo}.  
 Para fechar um arquivo, usa-se File.close/1.
@@ -118,7 +118,7 @@ File.close(arquivo);
 ```
 Elixir trabalha com arquivos como processos, logo o nosso "ponteiro" para o arquivo é na verdade um PID.
 
-### Ler e Escrever
+#### Ler e Escrever
 
 Por padrão um arquivo é aberto em modo binário, necessitando das funções corretas para interagir com ele: IO.binread/2 e IO.bitwrite/2.
 
@@ -154,7 +154,7 @@ case tupla_estado_arquivo do
 end
 ```
 
-### Módulo Path
+#### Módulo Path
 
 As funções de manipulação de arquivos do módulo File precisam trabalhar com o caminho do arquivo. O módulo Path facilita isso.
 
@@ -164,3 +164,114 @@ caminho = Path.expand("~/meu_arquivo")
 
 File.open(caminho, [:write])
 ```
+
+## Importando e Renomeando módulos
+
+Elixir possui ferramentas para reusar código de outros módulos, até mesmo com outros nomes.
+
+### alias
+
+Permite a renomeação de módulos.
+
+Um `alias` só é válido no escopo em que foi definido.
+
+```
+defmodule MeuModulo do
+	alias Modulo.SubModulo, as: ModuloLegal
+
+	# Agora, ao usar 'ModuloLegal', na verdade uso 'Modulo.SubModulo'
+end
+```
+
+Note que ainda pode-se usar o nome verdadeiro do módulo.  
+Caso hajam múltiplos módulos com submódulo 'SubModulo', usa-se o termo completo para referenciar o módulo adequado (ModuloCerto.SubModulo).
+
+```
+alias Modulo.SubModulo
+
+# é equivalente a
+
+alias Modulo.SubModulo, as: SubModulo
+```
+
+### require
+
+Permite a importação de macros de um módulo.
+
+Um `require` só é válido no escopo em que foi definido.
+
+```
+# 'is_odd' não é uma função, mas sim um macro de Integer
+
+# Isso dispara erro
+Integer.is_odd(5)
+
+
+require(Integer)
+
+# Agora isso é ok
+Integer.is_odd(5)
+```
+
+Funções públicas de um módulo disponível ficam automaticamente disponíveis, mas seus macros precisam do `require`.
+
+### import
+
+Permite o acesso a funções e macros de outro módulo sem precisar referenciar o módulo.
+
+Um `import` só é válido no escopo em que foi definido.
+
+```
+defmodule MeuModulo do
+	import Integer
+
+	def eh_impar?(x) do
+		is_odd(x)
+	end
+end
+```
+
+Ao usar um `import`, automaticamente usa-se `require` também, logo macros do módulo ficam disponíveis.
+
+É boa prática usar `only` e `except` para definir melhor o que se quer importar.
+
+```
+import Integer, only: [is_odd: 1]
+
+import Integer, except: [is_odd: 1]
+```
+
+### use
+
+Permite a injeção do código de um módulo.
+
+```
+defmodule MeuModulo do
+	use Ferramenta, opcao: :valor
+
+	# Agora, todo o código de ferramenta foi injetado aqui e posso fazer uso dele
+end
+```
+
+Ao usar um `use`, automaticamente é usado um `require` também.
+
+Como use permite que qualquer código seja executado, precisa-se ter cuidado e entender o módulo importado.
+
+### Referenciando vários módulos
+
+É possível usar quaisquer de `alias`, `require`, `import` e `use` para referenciar vários módulos.
+
+```
+alias MeuAplicativo.{Modulo1, Modulo2, Modulo3}
+```
+
+### Boas Práticas
+
+Para simplificar e manter o código organizado, é melhor usar o primeiro que resolver o problema:
+
+1. alias
+2. require
+3. import
+4. use
+
+Ou seja, se `alias` resolve o problema, não use `import`.
