@@ -581,3 +581,53 @@ defprotocol Utilidade do
 	def meu_tipo(valor)
 end
 ```
+
+## Compreensões
+
+Para iterar sobre uma estrutura de dados, existe a sintaxe `for <- ..., do: ...`.
+
+```
+lista = for n <- [1, 2, 3, 4], do: n * n
+
+# lista é igual a [1, 4, 9, 16]
+```
+
+Ela é dividida em 3 partes:
+
+1. Gerador: as estruturas de dados geradas que serão iteradas sobre.
+2. Filtros: alguma função ou casamento de padrão que defina os itens da estrutura que serão considerados.
+3. Coletável: onde e como será guardado o resultado.
+
+```
+lista = for n <- 1..5, n <= 3, do: n - 1
+
+# lista é igual a [0, 1, 2]
+
+# '<- 1..5' é o gerador
+# 'n <= 3' é o filtro
+# [0, 1, 2] é o coletável, colocado dentro de lista
+```
+
+É possível colocar múltiplos geradores e filtros.
+
+Note que as variáveis atribuídas dentro da compreensão não são refletidas fora dela, semelhante a serem declaradas dentro de um bloco.
+
+```
+# Compreensão que retorna os números positivos de 'm'
+
+lista = for n <- -10..1, m <- -100..2, n == 0, m > 0, do: n + m
+
+# lista é igual a [1, 2]
+
+# 'n <- -10..1' e 'm <- -100..2' são geradores
+# 'n == 0' e 'm > 0' são filtros
+# [1, 2] é o coletável
+```
+
+Para mudar onde o coletável será colocado, usa-se `into`.
+
+```
+mapa = for {chave, valor} <- %{a: 1, b: 2}, into: %{}, do: {chave, valor + 1}
+
+# mapa é igual a %{a: 2, b: 3}
+```
