@@ -82,6 +82,73 @@ meu_mapa = %{chave1: :valor1, chave2: :valor2}
 meu_valor = meu_mapa.chave1
 ```
 
+### Structs
+
+Structs são construídas baseadas em mapas, provendo valores padrão, checagens em tempo de compilação e número fixo de campos.
+
+Uma struct é definida dentro de um módulo usando `defstruct`, obtendo para si o nome do módulo.
+
+Para usar uma struct, usa-se `%nome_modulo{}`.
+
+```
+defmodule Usuario do
+	defstruct nome: "Lynn", idade: 25
+end
+
+lynn = %Usuario{}
+felipe = %Usuario{nome: "Felipe"}
+
+# 'lynn' é igual a %Usuario{idade: 25, nome: "Lynn"}
+# 'felipe' é igual a %Usuario{idade: 25, nome: "Felipe"}
+```
+
+Para modificar um campo da struct, usa-se a sintaxe de atualização `|`, igual nos mapas.
+
+Como não há mudança na estrutura da struct usando essa sintaxe, pode-se referenciar uma outra struct do mesmo módulo ao usar o operador.
+
+```
+%Usuario{lynn | idade: 26}
+
+# Atualizando a partir dos valores de outra struct
+vinicius = {lynn | nome: "Vinicius"}
+```
+
+Structs também permitem casamento de padrão igual a mapas. O casamento de padrão só ocorre caso sejam ambas structs e, quando convém, do mesmo módulo.
+
+Para obter o módulo de uma struct, usa-se `minha_struct.__struct__`
+
+```
+defmodule Usuario do
+	defstruct nome: "Lynn", idade: 25
+end
+
+defmodule User do
+	defstruct nome: "Lynn", idade: 25
+end
+
+%User{} = %{}  # Struct não casa com mapa
+
+%User{} = %Usuario{}  # Apesar de iguais internamente, não casam
+
+%User{}.__struct__  # Retorna 'User'
+```
+
+Caso não seja desejável declarar valor padrão, declara-se os campos entre colchetes, com os que não tiverem valor padrão primeiro. O valor padrão deles será assumido como nil.
+
+Já para forçar a declaração de um valor padrão, pode-se usar o atributo de módulo `@enforce_keys`.
+
+```
+defmodule Usuario do
+	@enforce_keys [:nome]
+
+	defstruct [:idade, nome: "Lynn"]
+end
+```
+
+Tentar acessar, adicionar ou modificar um campo não existente em uma struct não é permitido e dispara erro.
+
+Enquanto struct são construídas baseadas em mapas (logo funções do módulo Map funcionam em structs), protocolos de mapas não são implementados para structs (não dá para acessar um campo com `struct[:campo]`, por exemplo).
+
 ### Palavras-Chaves e Blocos
 
 Há algumas palavras chaves em Elixir que permitem sintaxe de bloco:
