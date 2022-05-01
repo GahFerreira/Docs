@@ -1,5 +1,125 @@
 # Conceitos Elixir
 
+## Estruturas de Dados Chave-Valor
+
+### Keyword Lists
+
+Keyword Lists, ou Listas de Palavras-Chave, são listas em que cada elemento é uma tupla {chave: valor}.
+
+O primeiro elemento da tupla é a chave, e o segundo é o valor (key-value pair).
+
+A sintaxe da Keyword List é bastante permissiva, além de possuir todos os recursos de listas.
+
+```
+[trim: true] == [{trim: true}]  # São equivalentes
+
+# Pode-se acessar o elemento de uma Keyword List por [:chave]
+minha_lista = [a: 1]
+minha_lista[:a]
+```
+
+São comumente usadas para passar opções para funções.
+
+```
+# Exemplo de Keyword List passada para função
+String.split("1  2  3", " ", [trim: true])
+
+# Não precisa de [] quando é o último parâmetro de uma função
+String.split("1  2  3", " ", trim: true)
+```
+
+Informações notáveis sobre Keyword Lists:
+
+- Chaves têm de ser átomos
+- Chaves são ordenadas
+- Chaves não precisam ser únicas
+
+Em caso de chaves duplicadas, ao buscar-se por uma chave `minha_lista[:chave]`, retorna-se o primeiro elemento com aquela chave.
+
+### Mapas
+
+Mapas são estruturas de dados de Chave-Valor em que cada chave é única.
+
+Chaves em mapas podem ser de qualquer tipo e não são ordenadas, facilitando casamento de padrões que ocorrem fora de ordem também.
+
+A sintaxe de um mapa é `%{chave => valor, chave => valor, ...}`, e há diversas maneiras de acessar elementos.
+
+```
+meu_mapa = %{:chave => 1, 2 => :valor}
+
+%{:chave => valor} = meu_mapa  # 'valor' recebe 1
+
+outro_valor = meu_mapa[:chave]
+
+mais_outro_valor = meu_mapa.chave  # Válido só se 'chave' for um átomo
+
+ainda_outro_valor = Map.get(meu_mapa, :chave)  # Usando o módulo Map
+```
+
+Um mapa só não casa padrão caso a chave a ser casada não esteja presente no mapa.  
+Ou seja, um mapa vazio `%{}` casa sempre.
+
+```
+%{:c => 1} = %{:a => 1, :b => 1}  # Dispara erro!
+```
+
+Para atualizar um valor no mapa, a sintaxe é `%{meu_mapa | chave_existente => novo_valor}`. Note que não é possível adicionar itens ao mapa nessa sintaxe.
+
+```
+meu_mapa = %{:chave => 1, 2 => :valor}
+
+%{meu_mapa | :chave => :novo_valor}
+```
+
+Mapas funcionam muito bem quando as suas chaves são átomos.
+
+1. Se todas forem átomos, na declaração, pode-se usar a sintaxe `atomo:` na chave, invés de `chave =>`.
+2. Para acessar uma chave que é átomo, pode-se usar `mapa.chave`.
+
+```
+meu_mapa = %{chave1: :valor1, chave2: :valor2}
+
+meu_valor = meu_mapa.chave1
+```
+
+### Palavras-Chaves e Blocos
+
+Há algumas palavras chaves em Elixir que permitem sintaxe de bloco:
+
+1. do
+2. else
+3. catch
+4. rescue
+5. after
+
+```
+if true, do: "This", else: "That"
+
+# é equivalente a
+
+if true do
+	"This"
+else
+	"That"
+end
+```
+
+### Aninhamento de Estruturas
+
+Há alguns recursos prontos para lidar com aninhamento de estruturas em Elixir.
+
+Macros como put_in/2 e update_in/2 são muito úteis para atualizar estruturas aninhadas.
+
+```
+meu_mapa = %{a: [:alfa, :beta, :gama], b: 2}
+
+put_in meu_mapa.b, 3
+
+update_in meu_mapa.a, fn lista_interna -> List.delete(lista_interna, :gama) end
+
+# meu_mapa agora é igual a %{a: [:alfa, :beta], b: 3}
+```
+
 ## Processos
 
 Um processo executa código isolado de todos os outros processos.
@@ -122,7 +242,7 @@ Elixir trabalha com arquivos como processos, logo o nosso "ponteiro" para o arqu
 
 Por padrão um arquivo é aberto em modo binário, necessitando das funções corretas para interagir com ele: IO.binread/2 e IO.bitwrite/2.
 
-Pode se definir o tipo de abertura do arquivo. Por exemplo, usando :utf8, o módulo interpreta os bytes lidos como codificados em UTF-8.
+Pode-se definir o tipo de abertura do arquivo. Por exemplo, usando :utf8, o módulo interpreta os bytes lidos como codificados em UTF-8.
 
 ```
 {:ok, arquivo} = File.open("meu_arquivo", [:write]);
