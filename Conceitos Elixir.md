@@ -521,3 +521,63 @@ defmodule MeuModulo do
 	@acumulador :valor2    # Aqui @acumulador é [:valor1, :valor2]
 end
 ```
+
+## Protocolos
+
+Protocolos funcionam como um contrato. Para um módulo ter acesso às funcionalidades de um protocolo, ele deve implementar suas funções.
+
+Pode-se pensar em protocolos como classes abstratas ou interfaces de orientação a objetos.
+
+Protocolos resolvem o problema de uma função ter que tratar os vários tipos de dados que podem ser passados para ela.
+
+### Declaração e Implementação
+
+Um protocolo é declarado com `defprotocol`, e a implemetação de um protocolo por um tipo com `defimpl protocolo, for: nome_classe`.
+
+```
+defprotocol Utilidade do
+	def meu_tipo(valor)
+end
+
+defimpl Utilidade, for: Tuple do
+	def meu_tipo(tupla), do: "tupla"
+end
+
+minha_tupla = {1, 2}
+
+meu_tipo(minha_tupla)  # Retorna "tupla"
+```
+
+Uma função de protocolo pode ter mais de 1 parâmetro. Nesse caso, a implementação do protocolo a ser executada depende do tipo do primeiro parâmetro da função.
+
+Caso não haja um protocolo para aquele tipo, um erro é disparado.
+
+### Any
+
+Pode-se definir uma implementação padrão de um protocolo para qualquer tipo de dados usando `Any`.
+
+Dessa forma, qualquer módulo que deseja usar aquele protocolo com a implementação pode apenas usar `@derive [protocolo]`.
+
+```
+defimpl Utilidade, for: Any do
+	def meu_tipo(_), do: "tipo qualquer"
+end
+
+defmodule Usuario do
+	@derive [Utilidade]
+	defstruct [:nome]
+end
+
+Utilidade.meu_tipo(%Usuario{})  # Retorna "tipo qualquer"
+```
+
+No entanto, se um módulo que não usa `@derive [protocolo]` tentar usar o protocolo, um erro ainda é disparado.
+
+Caso seja desejável que todos os módulos usem a implementação padrão de um protocolo, usa-se `@fallback_to_any true` na definição do protocolo.
+
+```
+defprotocol Utilidade do
+	@fallback_to_any true
+	def meu_tipo(valor)
+end
+```
