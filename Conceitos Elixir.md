@@ -32,7 +32,7 @@ pid_destinatario = spawn( ... )
 send( pid_destinatario, {:oi, "processo"} )
 ```
 
-Para receber uma mensagem, usa-se receive/1, que suporte guardas e múltiplas cláusulas:
+Para receber uma mensagem, usa-se receive/1, que suporta guardas e múltiplas cláusulas:
 
 ```
 receive do
@@ -41,8 +41,8 @@ after
 	1_000 -> "Depois de 1s, ainda não encontrei o que espero!"
 end
 ```
-Note que 'after ...' pode ser usado para timeout.  
-'after 0' pode ser usado quando já se espera a mensagem na caixa de correio.
+Note que `after ...` pode ser usado para timeout.  
+`after 0` pode ser usado quando já se espera a mensagem na caixa de correio.
 
 ### Mostrando mensagens no shell
 
@@ -184,7 +184,7 @@ end
 ```
 
 Note que ainda pode-se usar o nome verdadeiro do módulo.  
-Caso hajam múltiplos módulos com submódulo 'SubModulo', usa-se o termo completo para referenciar o módulo adequado (ModuloCerto.SubModulo).
+Caso hajam múltiplos módulos com submódulo 'SubModulo', usa-se o termo completo para referenciar o módulo adequado (`ModuloCerto.SubModulo`).
 
 ```
 alias Modulo.SubModulo
@@ -275,3 +275,62 @@ Para simplificar e manter o código organizado, é melhor usar o primeiro que re
 4. use
 
 Ou seja, se `alias` resolve o problema, não use `import`.
+
+## Atributos de Módulo
+
+Atributos de módulo se iniciam com `@` e auxiliam no uso dos módulos.
+
+### Documentação
+
+A documentação de um módulo é feita através dos seguintes atributos:
+
+- `@moduledoc`: Documentação sobre o módulo
+- `@doc`: Documentação sobre a função ou macro a seguir
+- `@spec`: Especifica os tipos da função a seguir
+- `@behaviour`: Especifica um protocolo ou comportamento definido pelo usuário
+
+O Elixir trabalha com Here docs para documentação, que mantém a formatação do texto dentro. É usado com três aspas duplas.
+
+```
+defmodule MeuModulo do
+	@moduledoc """
+		Provê funções para o funcionamento do programa.
+	"""
+
+	@doc """
+		Calcula a soma de dois números.
+	"""
+	def soma(x, y), do: x + y
+end
+```
+### Constantes
+
+É possível definir uma constante com a sintaxe de atributo de módulo.
+
+Pode-se usar funções para definir o valor da constante, mas note que a função será chamada em tempo de compilação.
+
+```
+defmodule MeuModulo do
+	@minha_constante 10
+
+	def soma(x), do: x + @minha_constante
+end
+```
+
+Note que a constante precisa ser acompanhada do seu valor na mesma linha. Se houver quebra de linha, o Elixir vai interpretar como tentativa de leitura da constante.  
+Uma constante não definida gera erro ao tentar ser lida.
+
+### Armazenamento Temporário
+
+Atributos de módulo podem ainda ser usados como armazenamento temporário para definir como o resto do módulo será compilado.
+
+Pode-se, por exemplo, acumular vários em um atributo usando `accumulate: true`
+
+```
+defmodule MeuModulo do
+	Module.register_attribute __MODULE__, :acumulador, accumulate: true
+
+	@acumulador :valor1
+	@acumulador :valor2    # Aqui @acumulador é [:valor1, :valor2]
+end
+```
