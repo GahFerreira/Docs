@@ -1,5 +1,70 @@
 # Conceitos Elixir
 
+## Estruturas de Dados de Caracteres
+
+### Bitstrings
+
+Uma bitstring é uma sequência contígua de bits, declarada com a sintaxe `<<>>`.
+
+Por padrão, cada item de uma bitstring tem 8 bits, mas isso pode ser modificado colocando `::n_bits` ou `::size(n_bits)` após o item.
+
+Valores maiores que a capacidade de bits declarada para eles são truncados.
+
+```
+minha_bitstring = <<1, 2::5, 3::size(2)>>
+
+# '1' é representado por 8 bits, '2' por 5 bits e '3' por 2 bits
+
+
+<<1>> = <<257>> # Verdadeiro, pois 257 só tem 8 bits para ser representado
+```
+
+Pode-se fazer casamento de padrões com bitstrings, mas é necessário usar os tamanhos definidos para cada item.
+
+```
+minha_bitstring = <<1, 2::5, 3::size(2)>>
+
+<<1, x::5, 3::2>> = minha_bitstring  # Aqui casa, x é igual a 2
+
+<<1, x, 3>> = minha_bitstring  # Aqui não casa, dispara erro!
+```
+
+### Binaries
+
+Uma binary é uma bitstring em que cada item possui tamanho múltiplo de 8. Ou seja, cada item possui tamanho definido em bytes.
+
+```
+minha_binary = <<1, 2, 3, 4, 5>>
+```
+
+Pode-se fazer casamento de padrões em binaries, já que elas são bitstrings.
+
+Não é preciso usar os tamanhos definidos para cada item, como em bitstrings, já que todos os itens tem tamanho múltiplo de 8.
+
+No entanto, por padrão, espera-se que o casamento seja feito com um item de 8 bits (1 byte), mas isso pode ser aumentado colocando `::binary` no final do item a ser casado.
+
+```
+minha_binary = <<1, 2, 3, 4, 5>>
+
+<<1, 2, x, 4, 5>> = minha_binary  # x é igual a 3
+
+<<1, 2, 3, x::binary>> = minha_binary  # x é igual a <<4, 5>>
+```
+
+Ainda pode-se definir a quantidade de bytes a serem casados usando `::binary-size	(n_bytes)`.
+
+```
+minha_binary = <<1, 2, 3, 4, 5>>
+
+<<primeiros_dois::binary-size(2), resto::binary>> = minha_binary
+
+# primeiros_dois é igual a <<1, 2>> e resto é igual a <<3, 4, 5>>
+```
+
+### Strings
+
+
+
 ## Estruturas de Dados Chave-Valor
 
 ### Keyword Lists
